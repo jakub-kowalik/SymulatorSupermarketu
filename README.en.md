@@ -2,7 +2,8 @@
 
 ## Project for concurrent programming course
 
-Cash registers in supermarket simulation.
+### Cash registers in supermarket simulation.
+
 Assumptions:
 *	M – number of cash registers;
 *	N – maximum number of clients in store;
