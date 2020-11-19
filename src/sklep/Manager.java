@@ -1,6 +1,5 @@
 package sklep;
 
-
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -12,7 +11,6 @@ public class Manager implements Runnable {
 
     private final int m;
     private final int n;
-
 
     private final StoreQueue<Message> messageQueue;
     public final int[] isWorking;
@@ -34,7 +32,6 @@ public class Manager implements Runnable {
 
     }
 
-
     public void run() {
         try {
             while (!Thread.interrupted()) {
@@ -44,20 +41,17 @@ public class Manager implements Runnable {
                     cashierBreak();
 
                 assignClient();
-
             }
         } catch (InterruptedException e) {
-            System.out.println("Przerwano zadanie " + this);
+
         }
-        System.out.println("Zakoñczono zadanie " + this);
     }
 
     public synchronized String toString() {
         return "Manager ";
     }
 
-
-     private void assignClient() throws InterruptedException {
+    private void assignClient() throws InterruptedException {
         if (workingCashiers() > 0) {
             try {
                 boolean flag = true;
@@ -71,7 +65,7 @@ public class Manager implements Runnable {
                     }
                 }
             } catch (InterruptedException e) {
-                System.out.println("Przerwano zadanie " + this);
+
                 throw e;
             }
         }
@@ -83,12 +77,11 @@ public class Manager implements Runnable {
         try {
             temp = messageQueue.take();
         } catch (InterruptedException e) {
-            System.out.println("Przerwano zadanie " + this);
+
         }
         if (temp != null) {
             temp1 = temp.getCode();
             isWorking[temp1[0]] = temp1[1];
-            System.out.println("Wiadomosc: " + temp1[0] + temp1[1]);
         }
     }
 
@@ -104,6 +97,5 @@ public class Manager implements Runnable {
     public synchronized int[] getIsWorking() {
         return isWorking;
     }
-
 
 }

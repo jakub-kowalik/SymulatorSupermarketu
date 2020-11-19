@@ -6,8 +6,6 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-
-
 class StoreQueue<T> {
     private final Queue<T> queue = new LinkedList<>();
     private final int capacity;
@@ -18,7 +16,6 @@ class StoreQueue<T> {
 
     private final int id;
     public volatile int size;
-
 
     public StoreQueue(int capacity, int id) {
         this.capacity = capacity;

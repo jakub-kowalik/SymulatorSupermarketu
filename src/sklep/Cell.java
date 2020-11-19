@@ -19,11 +19,9 @@ public class Cell {
 
     public String getCashier() { return cashier; }
 
-
     public String getStatus() {
         return status;
     }
-
 
     public String getClients() {
         return clients;

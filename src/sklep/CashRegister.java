@@ -43,13 +43,13 @@ public class CashRegister implements Runnable {
         try {
             while (!Thread.interrupted()) {
                 if (timeWorking < workTime) {
-                        Client customer = clients.take();
-                        timeWorking += customer.getServiceTime();
-                        TimeUnit.MILLISECONDS.sleep(customer.getServiceTime());
+                    Client customer = clients.take();
+                    timeWorking += customer.getServiceTime();
+                    TimeUnit.MILLISECONDS.sleep(customer.getServiceTime());
                 } else {
-                    int[] wiadomosc = {id,0};
+                    int[] wiadomosc = {id, 0};
                     messageQueue.put(new Message(wiadomosc));
-                    while(clients.size() != 0) {
+                    while (clients.size() != 0) {
                         Client customer = clients.take();
                         timeWorking += customer.getServiceTime();
                         TimeUnit.MILLISECONDS.sleep(customer.getServiceTime());
@@ -58,9 +58,8 @@ public class CashRegister implements Runnable {
                 }
             }
         } catch (InterruptedException e) {
-            System.out.println("Przerwano zadanie " + this);
+
         }
-        System.out.println("Zakoñczono zadanie " + this);
     }
 
     public String toString() {
@@ -87,7 +86,6 @@ public class CashRegister implements Runnable {
                 changeCashier = false;
             }
         } catch (InterruptedException e) {
-            System.out.println("Przerwano zadanie " + this);
             throw e;
         }
     }

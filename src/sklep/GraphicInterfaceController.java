@@ -38,10 +38,6 @@ public class GraphicInterfaceController {
     @FXML TableColumn<String, Cell> tableStatus;
     @FXML TableColumn<String, Cell> tableKlienci;
 
-
-
-
-
     int m;
     int n;
     int praca;
@@ -49,12 +45,9 @@ public class GraphicInterfaceController {
     boolean isRunning = false;
     ExecutorService exec;
 
-
     @FXML protected void startButton(ActionEvent event) {
 
        if ( checkN() && checkM() && checkPraca() && checkPrzerwa() && !isRunning) {
-
-
            exec = Executors.newCachedThreadPool();
            StoreQueue<Message> messageQueue = new StoreQueue<>(m, -2);
 
@@ -64,24 +57,27 @@ public class GraphicInterfaceController {
                try {
                    pracownicy.put(new Cashier(NameGenerator.randomName(), praca, przerwa));
                } catch (Exception e) {
-                   System.out.println("Przerwano zadanie " + this);
+
                }
            }
 
-
            series1 = new XYChart.Series<> ();
            StoreQueue<Client>[] storeQueue = new StoreQueue[m];
+
            for (int i = 0; i < m; i++) {
                storeQueue[i] = new StoreQueue<>(n, i);
            }
+
            StoreQueue<Client> nasklepie = new StoreQueue<>(n, -1);
 
            ClientGenerator generatorSklep = new ClientGenerator(storeQueue, nasklepie, n, m);
 
            CashRegister[] cashRegister = new CashRegister[m];
+
            for (int i = 0; i < m; i++) {
                cashRegister[i] = new CashRegister(storeQueue[i], i, messageQueue, pracownicy);
            }
+
            Manager kier = new Manager(storeQueue, nasklepie, m, n, messageQueue, generatorSklep);
 
            createGraph(storeQueue, m);
@@ -95,7 +91,6 @@ public class GraphicInterfaceController {
            exec.execute(supervisor);
            isRunning = true;
        }
-
     }
 
     @FXML protected void stopButton(ActionEvent event) {
@@ -112,7 +107,6 @@ public class GraphicInterfaceController {
     private boolean checkM() {
         try {
             m = Integer.parseInt(wartoscM.getText());
-            System.out.println("M= " + m);
             return true;
         } catch (NumberFormatException nfe) {
             System.out.println("NumberFormatException: " + nfe.getMessage());
@@ -124,7 +118,6 @@ public class GraphicInterfaceController {
     private boolean checkN() {
         try {
             n = Integer.parseInt(wartoscN.getText());
-            System.out.println("N= " + n);
             return true;
         } catch (NumberFormatException nfe) {
             System.out.println("NumberFormatException: " + nfe.getMessage());
@@ -136,7 +129,6 @@ public class GraphicInterfaceController {
     private boolean checkPraca() {
         try {
             praca = (Integer.parseInt(wartoscPraca.getText()) * 1000) / 2;
-            System.out.println("Praca= " + praca);
             return true;
         } catch (NumberFormatException nfe) {
             System.out.println("NumberFormatException: " + nfe.getMessage());
@@ -148,7 +140,6 @@ public class GraphicInterfaceController {
     private boolean checkPrzerwa() {
         try {
             przerwa = Integer.parseInt(wartoscPrzerwa.getText()) * 1000;
-            System.out.println("Przerwa= " + przerwa);
             return true;
         } catch (NumberFormatException nfe) {
             System.out.println("NumberFormatException: " + nfe.getMessage());
@@ -176,7 +167,6 @@ public class GraphicInterfaceController {
         }
 
         graphKasy.getData().add(series1);
-
     }
 
     public void updateGraph(StoreQueue<Client>[] kolejki) {
@@ -185,7 +175,6 @@ public class GraphicInterfaceController {
                 data.setYValue(kolejki[i].size());
                 i++;
             }
-
     }
 
     public void updateTable(StoreQueue<Client>[] storeQueue, int[] x, CashRegister[] cashRegister) {
@@ -214,7 +203,4 @@ public class GraphicInterfaceController {
         else
             return "Zmiana kasjera";
     }
-
-
-
 }

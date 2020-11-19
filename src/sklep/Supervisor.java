@@ -9,8 +9,6 @@ public class Supervisor implements Runnable {
     private final StoreQueue<Client>[] queues;
     private final CashRegister[] cashRegisters;
 
-
-
     public Supervisor(GraphicInterfaceController controller, Manager manager, ClientGenerator clientGenerator, StoreQueue<Client>[] queues, CashRegister[] cashRegisters) {
         this.controller = controller;
         this.manager = manager;
@@ -18,8 +16,6 @@ public class Supervisor implements Runnable {
         this.queues = queues;
         this.cashRegisters = cashRegisters;
     }
-
-
 
     public void run()  {
         try {
@@ -29,14 +25,11 @@ public class Supervisor implements Runnable {
                 controller.updateAllClients(new int[] {clientGenerator.overallStatus, clientGenerator.storeStatus, clientGenerator.queueStatus, manager.workingCashiers()});
                 controller.updateGraph(queues);
                 controller.updateTable(queues, manager.getIsWorking(), cashRegisters);
-
-
             }
         } catch (InterruptedException e) {
-            System.out.println("Przerwano zadanie " + this);
-        }
-        System.out.println("Zakoñczono zadanie " + this);
-    }
 
+        }
+
+    }
 }
 

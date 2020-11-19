@@ -1,6 +1,5 @@
 package sklep;
 
-
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -13,7 +12,6 @@ class ClientGenerator implements Runnable {
     private final int m;
     private final Random rand = new Random();
 
-
     public ClientGenerator(StoreQueue<Client>[] cashRegisterQueues, StoreQueue<Client> cq, int n, int m) {
         this.cashRegisterQueues = cashRegisterQueues;
         store = cq;
@@ -21,10 +19,10 @@ class ClientGenerator implements Runnable {
         this.m = m;
         this.overallStatus = 0;
     }
+
     public void run() {
         try {
             while(!Thread.interrupted()) {
-
                 int y = 0;
 
                 TimeUnit.MILLISECONDS.sleep(10);
@@ -41,9 +39,8 @@ class ClientGenerator implements Runnable {
 
                 }
         } catch(InterruptedException e) {
-            System.out.println("Przerwano zadanie Generator Klientow");
+
         }
-        System.out.println("Zakoñczono zadanie Generator Klientow");
     }
 
     private int readQueues() {
@@ -54,14 +51,9 @@ class ClientGenerator implements Runnable {
         return temp;
     }
 
-
     private int readStore() {
         int temp;
         temp = store.size;
         return temp;
     }
-
-
-
-
 }
